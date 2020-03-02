@@ -6,7 +6,7 @@ import { getModel, trainModel } from "./model";
 
 import { getData } from "./data";
 
-const tf = require("@tensorflow/tfjs-node");
+const tf = require("@tensorflow/tfjs");
 
 export const MODEL_PATH = `file://${__dirname}/models/trip`;
 const MODEL_SAMPLE_COUNT = 3;

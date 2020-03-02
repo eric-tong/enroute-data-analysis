@@ -2,7 +2,7 @@
 
 import { BATCH_SIZE } from "./model";
 import database from "../database/database";
-const tf = require("@tensorflow/tfjs-node");
+const tf = require("@tensorflow/tfjs");
 
 export const MIN_MINUTE_OF_DAY = 430;
 export const MAX_MINUTE_OF_DAY = 1200;
@@ -32,8 +32,8 @@ export async function getData(tripId: number) {
       labels[i] = 0;
     }
     return {
-      input: tf.tensor1d(inputs, "float32"),
-      label: tf.tensor1d(labels, "float32")
+      input: tf.tensor1d(inputs),
+      label: tf.tensor1d(labels)
     };
   });
 

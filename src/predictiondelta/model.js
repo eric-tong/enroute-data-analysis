@@ -1,8 +1,8 @@
 // @flow
 
-const tf = require("@tensorflow/tfjs-node");
+const tf = require("@tensorflow/tfjs");
 
-const EPOCHS = 50;
+const EPOCHS = 1;
 export const BATCH_SIZE = 32;
 
 export function getModel() {
