@@ -4,7 +4,8 @@ import { MAX_DELTA, MAX_DISTANCE, getData } from "./data";
 
 import { MODEL_PATH } from "./trainModels";
 import { plot } from "nodeplotlib";
-import tf from "@tensorflow/tfjs";
+
+const tf = require("@tensorflow/tfjs");
 
 export default async function plotPredictionOnTrainingData(tripId: number) {
   const data = await getData(tripId);

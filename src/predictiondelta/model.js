@@ -2,7 +2,7 @@
 
 const tf = require("@tensorflow/tfjs-node");
 
-const EPOCHS = 50;
+const EPOCHS = 2;
 export const BATCH_SIZE = 32;
 
 export function getModel() {
@@ -27,11 +27,15 @@ export async function trainModel(
     metrics: ["mse"]
   });
 
-  return await model.fit(inputs, labels, {
+  await model.fit(inputs, labels, {
     batchSize: BATCH_SIZE,
     epochs: EPOCHS,
     shuffle: false
   });
+
+  return model
+    .evaluate(inputs, labels, { batchSize: BATCH_SIZE })[0]
+    .dataSync()[0];
 }
 
 function mseAndInterceptLoss(yTrue, yPred) {
