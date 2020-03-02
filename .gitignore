@@ -1,0 +1,11 @@
+lib
+node_modules
+data
+yarn-error.log
+*.code-workspace
+*.env
+.DS_Store
+.node-persist
+*.sh
+commands.sql
+*.csv
