@@ -32,8 +32,8 @@ export async function getData(tripId: number) {
       labels[i] = 0;
     }
     return {
-      input: tf.tensor1d(inputs),
-      label: tf.tensor1d(labels)
+      input: tf.tensor1d(inputs, "float32"),
+      label: tf.tensor1d(labels, "float32")
     };
   });
 
