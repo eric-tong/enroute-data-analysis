@@ -36,4 +36,5 @@ async function trainAndSaveModel(tripId: number) {
     }
   }
   if (model) model.save(`${MODEL_PATH}-${tripId}`);
+  console.log(`Trip ${tripId} model trained.`, `Loss: ${minLoss}`);
 }
