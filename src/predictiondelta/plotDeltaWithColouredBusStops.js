@@ -7,10 +7,10 @@ import { plot } from "nodeplotlib";
 
 const trips = Array.from({ length: 5 }, (_, i) => i + 1);
 Promise.all(
-  trips.map(tripId => saveCSV(tripId).catch(console.error))
+  trips.map(tripId => plotDelta(tripId).catch(console.error))
 ).then(data => data.forEach(graph => plot([graph])));
 
-async function saveCSV(tripId: number) {
+async function plotDelta(tripId: number) {
   const GET_DATA = `
       WITH actual_departures AS (
           SELECT scheduled_departure_id AS id, MIN(bus_stops.id) AS "busStopId",

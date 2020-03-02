@@ -1,35 +1,12 @@
 // @flow
 
-import "../service/config";
-
 import { MAX_DELTA, MAX_DISTANCE, getData } from "./data";
-import { getModel, trainModel } from "./model";
 
+import { MODEL_PATH } from "./trainModels";
 import { plot } from "nodeplotlib";
+import tf from "@tensorflow/tfjs";
 
-const tf = require("@tensorflow/tfjs-node");
-
-const MODEL_PATH = `file://${__dirname}/model-split-training-trip`;
-
-index();
-
-async function index() {
-  for (let i = 1; i <= 29; i++) await main(i);
-}
-
-async function main(tripId: number) {
-  await trainAndSaveModel(tripId);
-  await validateModel(tripId);
-}
-
-async function trainAndSaveModel(tripId: number) {
-  const data = await getData(tripId);
-  const model = getModel();
-  await trainModel(model, data.training.input, data.training.label);
-  model.save(`${MODEL_PATH}-${tripId}`);
-}
-
-async function validateModel(tripId: number) {
+export default async function plotPredictionOnTrainingData(tripId: number) {
   const data = await getData(tripId);
   const model = await loadModel(`${MODEL_PATH}-${tripId}`);
 

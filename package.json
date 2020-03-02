@@ -1,12 +1,10 @@
 {
   "name": "enroute-platform",
-  "main": "lib/index.js",
   "license": "UNLICENSED",
   "scripts": {
     "build": "babel src/ -d lib/",
     "prepublish": "yarn run build",
-    "start": "node lib/index.js",
-    "trainmodels": "node lib/predictiondelta/index.js",
+    "trainmodels": "node -e 'require(\"./lib/predictiondelta/trainModels.js\").start()'",
     "plotmodels": "node lib/analysis/predictiondelta/plot.js",
     "testpunctuality": "node lib/analysis/punctuality/index.js"
   },
