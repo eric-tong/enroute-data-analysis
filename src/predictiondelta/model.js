@@ -2,7 +2,7 @@
 
 const tf = require("@tensorflow/tfjs-node");
 
-const EPOCHS = 2;
+const EPOCHS = 50;
 export const BATCH_SIZE = 32;
 
 export function getModel() {
