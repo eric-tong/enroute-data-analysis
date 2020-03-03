@@ -12,9 +12,11 @@ export const MODEL_PATH = `file://${__dirname}/models/trip`;
 const MODEL_SAMPLE_COUNT = 3;
 
 export async function start() {
+  console.log(new Date().toUTCString(), "Start training models.");
   for (let tripId = 1; tripId <= 29; tripId++) {
     await trainAndSaveModel(tripId).catch(console.error);
   }
+  console.log(new Date().toUTCString(), "Complete training models.");
 }
 
 async function trainAndSaveModel(tripId: number) {
