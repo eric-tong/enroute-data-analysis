@@ -29,7 +29,11 @@ async function trainAndSaveModel(tripId: number) {
       testModel,
       data.training.input,
       data.training.label
-    );
+    ).catch(error => {
+      console.error(error);
+      return null;
+    });
+    if (!loss) continue;
     if (loss < minLoss) {
       model = testModel;
       minLoss = loss;
