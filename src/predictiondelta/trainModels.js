@@ -41,6 +41,10 @@ async function trainAndSaveModel(tripId: number) {
       minLoss = loss;
     }
   }
-  if (model) model.save(`${MODEL_PATH}-${tripId}`);
-  console.log(`Trip ${tripId} model trained.`, `Loss: ${minLoss}`);
+  if (model) {
+    model.save(`${MODEL_PATH}-${tripId}`);
+    console.log(`Trip ${tripId} model trained.`, `Loss: ${minLoss}`);
+  } else {
+    console.log(`Trip ${tripId} training failed.`);
+  }
 }
