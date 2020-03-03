@@ -5,8 +5,9 @@
     "build": "babel src/ -d lib/",
     "prepublish": "yarn run build",
     "trainmodels": "node -e 'require(\"./lib/predictiondelta/trainModels.js\").start()'",
-    "plotmodels": "node lib/analysis/predictiondelta/plot.js",
-    "testpunctuality": "node lib/analysis/punctuality/index.js"
+    "plotmodels": "node lib/predictiondelta/plotPredictionOnTrainingData.js",
+    "plotdelta": "node lib/predictiondelta/plotImprovedDeltaOnDelta.js",
+    "testpunctuality": "node lib/punctuality/index.js"
   },
   "dependencies": {
     "@babel/core": "^7.6.4",
