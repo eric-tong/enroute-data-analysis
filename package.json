@@ -17,6 +17,7 @@
     "@tensorflow/tfjs": "^1.5.2",
     "dotenv": "^8.2.0",
     "luxon": "^1.21.3",
+    "mathjs": "^6.6.1",
     "nodeplotlib": "^0.6.5",
     "pg": "^7.12.1"
   },

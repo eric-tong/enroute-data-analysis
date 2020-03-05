@@ -2,12 +2,13 @@
 import "../service/config";
 
 import { MAX_DELTA, MAX_DISTANCE } from "./data";
+import { mean, median, std } from "mathjs";
 
 import database from "../database/database";
 import { plot } from "nodeplotlib";
 
 plotHistogram();
-plotScatter();
+for (let i = 1; i <= 29; i++) plotScatter(i);
 
 async function plotHistogram() {
   const xbins = { size: 0.25, start: -10.125, end: 10.125 };
@@ -39,10 +40,25 @@ async function plotHistogram() {
   };
 
   plot([originalDeltaPlot, improvedDeltaPlot], layout);
+  console.table(
+    [originalDeltaPlot, improvedDeltaPlot].map(plot => ({
+      name: plot.name,
+      median: median(plot.x),
+      mean: mean(plot.x),
+      std: std(plot.x)
+    }))
+  );
+  console.log({
+    improvement:
+      originalDeltaPlot.x.filter(
+        (_, i) =>
+          Math.abs(originalDeltaPlot.x[i]) >= Math.abs(improvedDeltaPlot.x[i])
+      ).length / originalDeltaPlot.x.length
+  });
 }
 
-async function plotScatter() {
-  const data = await getRawData();
+async function plotScatter(tripId: number) {
+  const data = await getRawData(tripId);
   const originalDeltaPlot = {
     x: data.map(row => row.distance),
     y: data.map(row => row.delta / 60),
@@ -59,7 +75,7 @@ async function plotScatter() {
   };
   const layout = {
     title: {
-      text: `Delta vs Distance`
+      text: `Delta vs Distance for Trip ${tripId}`
     },
     xaxis: {
       title: {
@@ -76,7 +92,7 @@ async function plotScatter() {
   plot([originalDeltaPlot, improvedDeltaPlot], layout);
 }
 
-async function getRawData() {
+async function getRawData(tripId?: number) {
   const GET_DATA = `
       WITH actual_departures AS (
           SELECT scheduled_departure_id AS id, MIN(bus_stops.id) AS "busStopId",
@@ -86,6 +102,7 @@ async function getRawData() {
               INNER JOIN avl_trip ON avl.id = avl_trip.avl_id
               INNER JOIN bus_stops ON bus_stop_visits.bus_stop_id = bus_stops.id
               WHERE NOW()::DATE - timestamp::DATE < 7
+              ${tripId ? `AND trip_id = ${tripId}` : ""}
               GROUP BY scheduled_departure_id, timestamp::DATE
       )
   
